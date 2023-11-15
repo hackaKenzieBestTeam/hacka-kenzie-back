@@ -8,6 +8,7 @@
     "dev": "tsnd --cls --rs --ignore-watch node_modules src/server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
+    "precommit": "npm run build",
     "typeorm": "typeorm-ts-node-commonjs",
     "lint": "eslint src"
   },
