@@ -20,7 +20,7 @@ exports.createUserRequestSchema = zod_1.default.object({
     password: zod_1.default.string(),
     cpf: zod_1.default.string(),
     phone: zod_1.default.string(),
-    birth_date: zod_1.default.date(),
+    birth_date: zod_1.default.string(),
     is_admin: zod_1.default.boolean().optional(),
     address: address_schemas_1.createAddressRequestSchema
 });

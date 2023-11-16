@@ -15,7 +15,7 @@ export const createUserService = async (
 
   data.address = addressRepo.create(address);
   data.password = await hash(password, 10);
-  data.birth_date = new Date(birth_date);
+  data.birth_date = birth_date;
 
   let newUser = userRepo.create(data);
   await userRepo.save(newUser);

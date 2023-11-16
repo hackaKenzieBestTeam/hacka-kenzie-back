@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserController = exports.loginUserController = exports.getUserController = exports.createUserController = void 0;
+exports.deleteUserController = exports.updateUserController = exports.loginUserController = exports.getUserController = exports.createUserController = void 0;
 const s = __importStar(require("../services/users"));
 const createUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
@@ -59,3 +59,10 @@ const updateUserController = (req, res) => __awaiter(void 0, void 0, void 0, fun
     return res.status(200).json(updatedUser);
 });
 exports.updateUserController = updateUserController;
+const deleteUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.user;
+    const user = yield s.getUserByIdOrThrowNewErrorService(id);
+    yield s.deleteUserService(user.id);
+    return res.status(204).send();
+});
+exports.deleteUserController = deleteUserController;

@@ -12,21 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUserService = void 0;
+exports.deleteUserService = void 0;
 const data_source_1 = __importDefault(require("../../data-source"));
 const entities_1 = require("../../entities");
-const bcrypt_1 = require("bcrypt");
-const get_service_1 = require("./get.service");
-const createUserService = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteUserService = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const userRepo = data_source_1.default.getRepository(entities_1.User);
-    const addressRepo = data_source_1.default.getRepository(entities_1.Address);
-    const { address, password, birth_date } = data;
-    data.address = addressRepo.create(address);
-    data.password = yield (0, bcrypt_1.hash)(password, 10);
-    data.birth_date = birth_date;
-    let newUser = userRepo.create(data);
-    yield userRepo.save(newUser);
-    newUser = yield (0, get_service_1.getUserByIdOrThrowNewErrorService)(newUser.id);
-    return newUser;
+    yield userRepo.delete(id);
+    return;
 });
-exports.createUserService = createUserService;
+exports.deleteUserService = deleteUserService;
