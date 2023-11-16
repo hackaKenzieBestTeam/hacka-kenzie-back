@@ -11,20 +11,27 @@ export const verifyDuplicatedCpfEmailOrUsername = async (
 
   const userRepo = AppDataSource.getRepository(User);
 
-  const cpfAlreadyBeingUsed = await userRepo.findOneBy({ cpf: cpf });
-  const emailAlreadyBeingUsed = await userRepo.findOneBy({ email: email });
-  const usernameAlreadyBeingUsed = await userRepo.findOneBy({
-    username: username
-  });
+  let cpfAlreadyBeingUsed = null;
+  let emailAlreadyBeingUsed = null;
+  let usernameAlreadyBeingUsed = null;
+
+  cpf && (cpfAlreadyBeingUsed = await userRepo.findOneBy({ cpf }));
+  email && (emailAlreadyBeingUsed = await userRepo.findOneBy({ email }));
+  username &&
+    (usernameAlreadyBeingUsed = await userRepo.findOneBy({
+      username
+    }));
 
   const fields: string[] = [];
 
   cpfAlreadyBeingUsed && fields.push('CPF');
-  emailAlreadyBeingUsed && fields.push('USERNAME');
-  usernameAlreadyBeingUsed && fields.push('EMAIL');
+  emailAlreadyBeingUsed && fields.push('EMAIL');
+  usernameAlreadyBeingUsed && fields.push('USERNAME');
 
   const errorMsg = {
-    message: 'This keys(s) already registered with another account',
+    message: `This ${
+      fields.length > 1 ? 'keys are' : 'key is'
+    } already registered with another account`,
     keys: fields
   };
 

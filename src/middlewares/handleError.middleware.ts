@@ -14,11 +14,11 @@ const handleErrorMiddleware = async (
     });
   }
 
-  // if (error instanceof ZodError) {
-  //   return res.status(500).json({
-  //     message: error.errors,
-  //   });
-  // }
+  if (error instanceof ZodError) {
+    return res.status(500).json({
+      message: error.errors
+    });
+  }
 
   return res.status(500).json({
     message: 'Internal server error'

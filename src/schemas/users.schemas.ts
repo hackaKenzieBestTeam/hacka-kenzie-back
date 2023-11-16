@@ -1,5 +1,8 @@
 import z from 'zod';
-import { createAddressRequestSchema } from './address.entity';
+import {
+  createAddressRequestSchema,
+  updateAddressRequestSchema
+} from './address.schemas';
 
 export const loginUserRequestSchema = z.object({
   email: z.string().email('Invalid email format.').optional(),
@@ -19,4 +22,16 @@ export const createUserRequestSchema = z.object({
   birth_date: z.date(),
   is_admin: z.boolean().optional(),
   address: createAddressRequestSchema
+});
+
+export const updateUserRequestSchema = z.object({
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  username: z.string().optional(),
+  email: z.string().optional(),
+  cpf: z.string().optional(),
+  password: z.string().optional(),
+  phone: z.string().optional(),
+  birth_date: z.string().optional(),
+  address: updateAddressRequestSchema
 });
