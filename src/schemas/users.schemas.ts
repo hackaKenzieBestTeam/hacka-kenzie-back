@@ -19,7 +19,7 @@ export const createUserRequestSchema = z.object({
   password: z.string(),
   cpf: z.string(),
   phone: z.string(),
-  birth_date: z.date(),
+  birth_date: z.string(),
   is_admin: z.boolean().optional(),
   address: createAddressRequestSchema
 });
