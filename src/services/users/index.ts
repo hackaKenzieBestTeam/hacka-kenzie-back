@@ -4,10 +4,12 @@ import {
   getUserByIdService
 } from './get.service';
 import { loginUserService } from './login.service';
+import { updateUserService } from './update.service';
 
 export {
   createUserService,
   getUserByIdOrThrowNewErrorService,
   getUserByIdService,
-  loginUserService
+  loginUserService,
+  updateUserService
 };
