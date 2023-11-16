@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
+require("express-async-errors");
 const express_1 = __importDefault(require("express"));
 const users_routes_1 = __importDefault(require("./routes/users.routes"));
 const handleError_middleware_1 = __importDefault(require("./middlewares/handleError.middleware"));

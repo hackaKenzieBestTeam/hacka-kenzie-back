@@ -1,4 +1,5 @@
 import { createUserService } from './create.service';
+import { deleteUserService } from './delete.service';
 import {
   getUserByIdOrThrowNewErrorService,
   getUserByIdService
@@ -11,5 +12,6 @@ export {
   getUserByIdOrThrowNewErrorService,
   getUserByIdService,
   loginUserService,
-  updateUserService
+  updateUserService,
+  deleteUserService
 };

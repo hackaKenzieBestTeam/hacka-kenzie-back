@@ -39,3 +39,10 @@ export const updateUserController = async (
   const updatedUser: User = await s.updateUserService(id, data);
   return res.status(200).json(updatedUser);
 };
+
+export const deleteUserController = async (req: Request, res: Response) => {
+  const { id } = req.user;
+  const user = await s.getUserByIdOrThrowNewErrorService(id);
+  await s.deleteUserService(user.id);
+  return res.status(204).send();
+};
