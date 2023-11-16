@@ -8,22 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const appError_1 = require("../errors/appError");
-const zod_1 = require("zod");
-const handleErrorMiddleware = (error, req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (error instanceof appError_1.AppError) {
-        return res.status(error.statusCode).json({
-            message: error.message
-        });
-    }
-    if (error instanceof zod_1.ZodError) {
-        return res.status(500).json({
-            message: error.errors
-        });
-    }
-    return res.status(500).json({
-        message: 'Internal server error'
-    });
+exports.updateAddressService = void 0;
+const data_source_1 = __importDefault(require("../../data-source"));
+const entities_1 = require("../../entities");
+const updateAddressService = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
+    const addressRepo = data_source_1.default.getRepository(entities_1.Address);
+    yield addressRepo.update(id, data);
+    const address = (yield addressRepo.findOneBy({ id }));
+    return address;
 });
-exports.default = handleErrorMiddleware;
+exports.updateAddressService = updateAddressService;

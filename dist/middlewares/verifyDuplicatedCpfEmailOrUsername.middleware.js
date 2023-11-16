@@ -18,17 +18,21 @@ const user_entity_1 = require("../entities/user.entity");
 const verifyDuplicatedCpfEmailOrUsername = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { cpf, username, email } = req.body;
     const userRepo = data_source_1.default.getRepository(user_entity_1.User);
-    const cpfAlreadyBeingUsed = yield userRepo.findOneBy({ cpf: cpf });
-    const emailAlreadyBeingUsed = yield userRepo.findOneBy({ email: email });
-    const usernameAlreadyBeingUsed = yield userRepo.findOneBy({
-        username: username
-    });
+    let cpfAlreadyBeingUsed = null;
+    let emailAlreadyBeingUsed = null;
+    let usernameAlreadyBeingUsed = null;
+    cpf && (cpfAlreadyBeingUsed = yield userRepo.findOneBy({ cpf }));
+    email && (emailAlreadyBeingUsed = yield userRepo.findOneBy({ email }));
+    username &&
+        (usernameAlreadyBeingUsed = yield userRepo.findOneBy({
+            username
+        }));
     const fields = [];
     cpfAlreadyBeingUsed && fields.push('CPF');
-    emailAlreadyBeingUsed && fields.push('USERNAME');
-    usernameAlreadyBeingUsed && fields.push('EMAIL');
+    emailAlreadyBeingUsed && fields.push('EMAIL');
+    usernameAlreadyBeingUsed && fields.push('USERNAME');
     const errorMsg = {
-        message: 'This keys(s) already registered with another account',
+        message: `This ${fields.length > 1 ? 'keys are' : 'key is'} already registered with another account`,
         keys: fields
     };
     if (fields.length > 0)
